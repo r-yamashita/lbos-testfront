@@ -15,7 +15,9 @@ var gulp = require('gulp'),
   minifyHtml = require('gulp-minify-html'),
   size = require('gulp-size'),
   serveStatic = require('serve-static'),
-  serveIndex = require('serve-index');
+  serveIndex = require('serve-index'),
+  cors = require('cors')
+  ;
 
 /* browserify */ 
 gulp.task('browserify', function() {
@@ -82,11 +84,15 @@ gulp.task('extras', function () {
 
 /* connect */
 gulp.task('connect', ['styles'], function () {
-  var app = connect()
+    var app = connect()
+//    .use(cors({origin: 'http://localhost:9001'}))
+//    .use(cors())
+    .use(cors({"origin": '*', "methods": ['GET', 'POST'], "preflightContinue": false}))
     .use(require('connect-livereload')({port: 35729}))
     .use(serveStatic('app'))
     .use('/bower_components', serveStatic('bower_components'))
-    .use(serveIndex('app'));
+    .use(serveIndex('app'))
+    ;
 
   require('http').createServer(app)
     .listen(9000)
