@@ -1,26 +1,34 @@
 // step1.js
+'use strict';
+//import m from 'mithril';
+
 var step1 = {};
+var pageInfo = m.prop([]);
 
 step1.vm = (function() {
     var vm = {};
-    vm.registerpageGet = function() {
-        return m.request({method: 'GET', url: "http://localhost:9001/contract/registerpage/get/10001"});
+    vm.registerpageGet = function(code) {
+        pageInfo = m.request({
+            method: 'GET', 
+            url: "http://localhost:9001/contract/registerpage/get/" + code,
+        }).then(function(json){
+            pageInfo = json;
+        });
     };
-    vm.init = function() {
-        vm.pageInfo = vm.registerpageGet();
+    vm.init = function(code) {
+        vm.pageInfo = vm.registerpageGet(code);
     };
     
     return vm;
 }());
 
-//step1.page = step1.vm.pageInfo;
-
 step1.controller = function() {
-    step1.vm.init();
+    var code = m.route.param('scenarioCode');
+    step1.vm.init(code);
 };
 
 step1.view = function() {
-    var json = step1.vm.pageInfo;
+    var json = pageInfo;
     return m("html", [
         m("body", [
             m("div", json)
@@ -28,4 +36,4 @@ step1.view = function() {
     ]);
 };
 
-m.mount(document, {controller: step1.controller, view: step1.view});
+//m.mount(document, {controller: step1.controller, view: step1.view});
