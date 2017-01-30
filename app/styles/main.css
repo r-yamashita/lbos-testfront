@@ -112,3 +112,7 @@
     max-height: 570px;
   }
 }
+
+div.error-msg {
+    color: red;
+}

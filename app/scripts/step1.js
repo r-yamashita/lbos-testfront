@@ -12,6 +12,9 @@ step1.vm = (function() {
             method: 'GET', 
             url: "http://localhost:9001/contract/registerpage/get/" + code,
         }).then(function(json){
+            if (json.result.status !== '200') {
+                m.route('/?mode=error');
+            }
             pageInfo = json;
         });
     };
