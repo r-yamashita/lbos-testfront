@@ -116,3 +116,12 @@
 div.error-msg {
     color: red;
 }
+
+div.no-required {
+    color: gray;
+}
+.contents-text {
+    display: inline;
+    background-color: lightgray;
+    text-decoration: underline;
+}

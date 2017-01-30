@@ -16,7 +16,6 @@ start.vm = (function() {
         var code = vm.scenarioCode();
         if (code !== "") {
             var route = "/step1/" + code;
-            console.log('submit:' + route);
             m.route(route);
         }
     };
